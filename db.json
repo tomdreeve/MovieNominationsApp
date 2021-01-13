@@ -1,3 +1,24 @@
 {
-  "nominations": []
+  "nominations": [
+    {
+      "Title": "Good Will Hunting",
+      "Year": "1997"
+    },
+    {
+      "Title": "Hell or High Water",
+      "Year": "2016"
+    },
+    {
+      "Title": "Drag Me to Hell",
+      "Year": "2009"
+    },
+    {
+      "Title": "From Hell",
+      "Year": "2001"
+    },
+    {
+      "Title": "Jason Goes to Hell: The Final Friday",
+      "Year": "1993"
+    }
+  ]
 }

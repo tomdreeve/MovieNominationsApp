@@ -1,0 +1,156 @@
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Corben', Georgia, Times, serif;
+}
+p, div, input {
+    font-family: 'Nobile', Helvetica, Arial, sans-serif;
+}
+
+h3 {
+    text-align: center;
+}
+body {
+    background: url(curtains.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+}
+
+.background {
+    background: rgba(0,0,0,0.5);
+    position: absolute;
+    width: 80%;
+    height: 125%;
+    left: 10%;
+    border: black;
+    border-radius: 5px;
+}
+
+.box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding-top: 10px;
+}
+
+.title {
+    position: relative;
+    text-align: center;
+    width: 40%;
+    left: 30%;
+    color: darkred;
+    background: rgba(0,0,0,0.9);
+    border: black;
+    border-radius: 5px;
+}
+
+.movie-box {
+    width: 40%;
+    color: white;
+    background: rgba(0,0,0,0.9);
+    border: black;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.nomination-box {
+    width: 40%;
+    color: white;
+    background: rgba(0,0,0,0.9);
+    border: black;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-content: center;
+}
+.search-field {
+    position: relative;
+    width: 90%;
+    font-size: medium;
+    left: 5%;
+    background-color: black;
+    color: white;
+    border: black;
+    border-radius: 5px;
+    height: 30px;
+}
+
+.search-bar {
+    text-align: center;
+    color: white;
+    border: wheat;
+    border-radius: 5px;
+    width: 70%;
+    left: 15%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-content: space-evenly;
+}
+
+.movie-result, .nomination-result {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    color: white;
+    font-size: smaller;
+}
+
+li:hover {
+    color:#f00;
+}
+
+.movielist, .nominationlist {
+    width: 100%;
+    list-style-type: none;
+    margin-left: 0px;
+    padding-left: 0px;
+}
+
+.nominate-button, .tee-button {
+    width: 50%;
+    color: white;
+    background-color: black;
+    align-self: flex-end;
+    
+}
+
+.remove-button {
+    width: 20%;
+    color: white;
+    background-color: black;
+    align-self: flex-end;
+    
+}
+
+.buttonbox {
+    width: 40%;
+}
+
+.whitetee {
+    position: relative;
+    width: 40%;
+    height: 40%;
+    left: 30%;
+}
+
+.tee {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+    width: 100%;
+}
+
+.logo {
+    position: absolute;
+    z-index: 3;
+    top: 30%;
+    left: 30%;
+    width: 40%;
+}
