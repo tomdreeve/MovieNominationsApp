@@ -91,9 +91,13 @@ document.body.addEventListener( 'click', function ( event ) {
     console.log(event.srcElement.className);
     if (event.srcElement.className === 'nominate-button' ) {
       addNomination(event.srcElement.id);
+      document.getElementById('whitetee').style.display = 'none';
+        document.getElementById('nomination-box').style.display = 'flex';
     } else if (event.srcElement.className === 'remove-button') {
         deleteNomination(event.srcElement.id);
     } else if (event.srcElement.className === 'tee-button') {
+        document.getElementById('whitetee').style.display = 'block';
+        document.getElementById('nomination-box').style.display = 'none';
         addImage(event.srcElement.id);
     }
   });
