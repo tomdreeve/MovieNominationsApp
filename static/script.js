@@ -61,9 +61,6 @@ function createNominationsOutput(data, ol){
         d.appendChild(btn);
         l.appendChild(d);
     }
-    if (data.length === 5) {
-        alert("5 nominations are done! May the best flick win!")
-        }
 }
 
 document.getElementById('search-field').addEventListener('keyup', searchMovies);
@@ -92,7 +89,7 @@ document.body.addEventListener( 'click', function ( event ) {
     if (event.srcElement.className === 'nominate-button' ) {
       addNomination(event.srcElement.id);
       document.getElementById('whitetee').style.display = 'none';
-        document.getElementById('nomination-box').style.display = 'flex';
+    document.getElementById('nomination-box').style.display = 'flex';
     } else if (event.srcElement.className === 'remove-button') {
         deleteNomination(event.srcElement.id);
     } else if (event.srcElement.className === 'tee-button') {
@@ -177,6 +174,9 @@ function getNominations() {
             //alert(data.error);
         } else { 
             createNominationsOutput(data, 'nominationlist');
+            if (data.length === 5) {
+                alert("5 nominations are done! May the best flick win!")
+                }
         }
     })
 }

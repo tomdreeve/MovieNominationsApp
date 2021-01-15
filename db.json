@@ -1,24 +1,12 @@
 {
   "nominations": [
     {
-      "Title": "Good Will Hunting",
-      "Year": "1997"
-    },
-    {
-      "Title": "The Good, the Bad and the Ugly",
-      "Year": "1966"
-    },
-    {
-      "Title": "A Few Good Men",
-      "Year": "1992"
+      "Title": "The Good Dinosaur",
+      "Year": "2015"
     },
     {
       "Title": "Good Morning, Vietnam",
       "Year": "1987"
-    },
-    {
-      "Title": "The Good Shepherd",
-      "Year": "2006"
     }
   ]
 }
