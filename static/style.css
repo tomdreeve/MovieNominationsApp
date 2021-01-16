@@ -1,7 +1,7 @@
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Oswald', sans-serif;
 }
-p, div, input, body {
+p, div, input, body, button {
     font-family: 'Cardo', serif;
 }
 
@@ -20,11 +20,13 @@ body {
     background: rgba(0,0,0,0.7);
     position: absolute;
     width: 100%;
-    height: 100%;
+    height: 125%;
     left: 0%;
     border: black;
     border-radius: 5px;
     box-shadow: 5px 5px 5px black;
+    text-align: left;
+    color: silver;
 }
 
 .box {
@@ -75,7 +77,7 @@ body {
 }
 .search-field {
     position: relative;
-    width: 90%;
+    width: 15%;
     font-size: medium;
     background-color: black;
     color: white;
@@ -90,9 +92,13 @@ body {
     color: white;
     border: wheat;
     border-radius: 5px;
-    width: 20%;
-    left: 7%;
+    width: 90%;
+    left: 5%;
     position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
 }
 
 .movie-result, .nomination-result {
@@ -164,3 +170,163 @@ li:hover {
     margin-right: -50%;
     transform: translate(-50%);
 }
+
+.user-popup {
+    position: fixed;
+    z-index: 9;
+    margin: auto;
+    width: 30%;
+    height: 20%;
+    background: rgba(0,0,0,0);
+    color: red;
+    display: flex;
+    flex-direction: column;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%,-50%);
+    justify-content: space-between;
+    align-content: center;
+    text-align: center;
+    border-style: solid;
+    border-radius: 10px;
+    padding: 3px;
+    border-color: darkred;
+}
+
+.login-title {
+    text-shadow: 2px 2px 2.5px darkred;
+}
+
+.btn-holder {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+}
+
+input {
+    color: white;
+}
+.username {
+    width: 50%;
+    background-color: transparent;
+    color: white;
+    position: relative;
+    left: 25%;
+    height: 20px;
+    border-style: solid;
+    border-color: red;
+    font-weight: 800;
+}
+
+.btn {
+    background-color: transparent;
+    color: red;
+    transition-duration: 0.4s;
+    border: none;
+    font-weight: 800;
+    height: 30px;
+    width: 30%;
+}
+
+.btn:hover {
+    background-color: red;
+    color: black;
+}
+
+.blur {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,1);
+    z-index: 6;
+}
+
+.slider{
+    /*max-width: 90%;
+    /* The position of the element is set relative to its original position: */
+    position: relative;
+    /* Center horizontally: */
+    margin-left: auto;
+    margin-right: auto;
+    height: 444px;
+    width: 1000px;
+    top: 5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+/* The picture is scaled in relation to the parent element: */
+.slider .item img {
+    /* The element is resized to fill the block and maintain proportions: */
+    object-fit: cover;
+    width: 300px;
+    height: 444px;
+}
+/* Back and forward buttons: */
+.slider .previous, .slider .next {
+    /* Adds an icon to the cursor when it is over the button: */
+    cursor: pointer;
+    /* The position of the element is set relative to the borders of the browser: */
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    /* Styling the buttons themselves: */
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    /* Background fading on hover: */
+    transition: 0.6s ease;
+    /* Rounding the borders: */
+    border-radius: 0 3px 3px 0;
+}
+.slider .next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+/* When you hover over the buttons, add the background of the buttons: */
+.slider .previous:hover,
+.slider .next:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+/* Slide animation: */
+.slider .item {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+@keyframes fade {
+    /* Set and change the transparency: */
+    from {
+        opacity: 0.4
+    }
+    to {
+        opacity: 1
+    }
+}
+
+.underline {
+    border-bottom: 1px solid darkred;
+}
+
+h2 span {
+    position: relative;
+    color: red;
+    font-weight: 100;
+    border-bottom: 1px solid darkred;
+    width: 100%;
+    left: 5%;
+  }
+  h2 span:before {
+    content: '';
+    position: absolute;
+    width: 35%;
+    height: 5px;
+    bottom: -3px;
+    left: 0;
+    background-color: darkred;
+  }

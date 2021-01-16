@@ -12,8 +12,17 @@
 </head>
 
 <body>
+  <div class="blur" id="blur"></div>
   <div class="background">
       <h1 class="title">THE SHOPPIES</h1>
+      <div class="user-popup" id="user-popup">
+        <h2 class="login-title">Who are you?</h2>
+        <input type="text"placeholder="Username" name="username" class="username" id="username" required>
+        <div class="btn-holder">
+          <button type="submit" class="btn" id="login">Login</button>
+          <button type="submit" class="btn" id="register">Register</button>
+        </div>
+      </div>
       <div id="search-bar" class="search-bar">
         <input type="text" id="search-field" class="search-field" placeholder="Movie Title...">
       </div>
@@ -28,9 +37,12 @@
       </div>
       <div class="whitetee" id="whitetee">
         <img src="whitetee.png" class="tee">
-      </div>
+      </div>    
     </div>
-  </div>
+    <h2 class="underline"><span>RECENT NOMINATIONS</span></h2>
+    <div class="slider" id="slider">
+    </div>
+    </div>
   <script defer src="script.js"></script>
 </body>
 </html>

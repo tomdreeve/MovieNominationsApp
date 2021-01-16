@@ -4,9 +4,8 @@ const router = express.Router();
 const app = express();
 const lowDb = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
-const { reset } = require('nodemon');
 const db = lowDb(new FileSync('db.json'));
-db.defaults({ nominations: []}).write();
+db.defaults({ nominations: [], users: [] }).write();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -19,7 +18,6 @@ app.use((req, res, next) => {
 
 async function search(term){
     var axios = require('axios');
-    var res;
     var config = {
     method: 'get',
     url: `http://www.omdbapi.com/?apikey=7260042&s=${term}&type=movie&r=json`,
@@ -50,35 +48,83 @@ app.get('/api/:movie', async (req,res) => {
 });
 
 app.delete('/api/nominate', (req, res) => {
-    const {Title, Year} = req.body;
-    if( (db.get("nominations").find({ Title: Title, Year: Year }).value()) ) {
-        db.get("nominations").remove({ "Title": Title, "Year": Year }).write();
+    const {User, Title, Year} = req.body;
+    if((db.get("nominations").find({ Owner: User }).get("picks").find({ Title: Title, Year: Year }).value()) ) {
+        db.get("nominations").find({ Owner: User }).get("picks").remove({ "Title": Title, "Year": Year }).write();
     } else {
         res.status(404).send({ error: 'Doesnt exist!'});
     }
     res.status(200).send({ message: 'deleted'});
 })
 
-app.get('/api/nominations/all', (req,res) => {
-    const data = db.get("nominations").value();
+app.get('/api/nominations/all/:user', (req,res) => {
+    const {user} = req.params;
+    const data = db.get("nominations").find({ Owner: user }).get("picks").value();
     res.send(data);
 });
 
 app.put('/api/nominate', (req,res) => {
-    const {Title, Year} = req.body;
-    console.log(Title)
+    const {User, Title, Year, Poster} = req.body;
+
     if (Title === undefined && Year === undefined) {
         res.status(404).send({ error: 'No movie/year' });
     }
-    if ( db.get("nominations").size().value() < 5 ){
-        if( !(db.get("nominations").find({ Title: Title, Year: Year }).value()) ) {
-            db.get("nominations").push({ "Title": Title, "Year": Year }).write();
+    var noms = db.get("nominations").find({ Owner: User }).get("picks");
+
+    if ( noms.size().value() < 5 ){
+        if( !(noms.find({ Title: Title, Year: Year }).value()) ) {
+            if (Poster === "N/A"){
+                noms.push({ "Title": Title, "Year": Year }).write();
+            } else {
+                noms.push({ "Title": Title, "Year": Year, "Poster": Poster }).write();
+            }
         } else {
             res.status(404).send({ "error": 'Already exists!'});
         }
         res.status(200).send({ "message": 'added'});
     } else res.status(400).send({ "error": 'Max 5 nominations!'});
 });
+
+app.put('/api/new/user', (req,res) => {
+    const {User} = req.body;
+    if (User === undefined) {
+        res.status(404).send({ error: 'No user entered' });
+    }
+    if( !(db.get("users").find({ Name : User}).value()) ) {
+        db.get("users").push({ "Name": User }).write();
+        db.get("nominations").push({ "Owner": User, "picks": [] }).write();
+    } else {
+        res.status(404).send({ "error": 'Already exists!'});
+    }
+    res.status(200).send({ "message": 'added'});
+});
+
+app.get('/api/login/:user', (req,res) => {
+    const {user} = req.params;
+    if (user === undefined) {
+        res.status(404).send({ error: 'No user entered' });
+    }
+    if((db.get("users").find({ Name : user}).value()) ) {
+        res.status(200).send({ "Message": 'Logged in'});
+    } else {
+        res.status(404).send({ "error": 'Already exists!'});
+    }
+});
+
+app.get('/api/posters/all', (req,res) => {
+    const noms = db.get("nominations").value();
+    var poster = [];
+    for (var i = 0; i < noms.length; i++) {
+        var picks = noms[i].picks;
+        for (var x = 0; x < picks.length; x++){
+            if (picks[x].Poster){
+                poster.push(picks[x].Poster);
+            }
+        }
+    }
+    console.log(poster);
+    res.send(poster);
+})
 
 // PORT - variable part of environment in which process runs
 const port = process.env.PORT || 3000;

@@ -1,5 +1,8 @@
-
-window.onload = getNominations();
+window.onclose = clearInterval();
+window.setInterval(function() {
+    if (document.getElementsByClassName('item').length)
+        showSlides(2);
+}, 4000);
 
 function createMoviesOutput(data, ol){
     const l = document.getElementById(ol);
@@ -117,11 +120,15 @@ function addImage(id) {
 
 function addNomination(id) {
     const btn = document.getElementById(id);
+    const user = document.getElementById('user').innerHTML.substr(7);
+    console.log(user);
     console.log(btn);
     var array = id.split('--');
     var content = {
+        "User": `${user}`,
         "Title": `${array[0]}`,
-        "Year": `${array[1]}`
+        "Year": `${array[1]}`,
+        "Poster": `${btn.previousSibling.id}`
     }
     const url = `api/nominate`;
     console.log(content)
@@ -132,16 +139,19 @@ function addNomination(id) {
      })
      .then((res) => res.json());
      getNominations();
+     getPicks();
 }
 
 function deleteNomination(id) {
     const btn = document.getElementById(id);
+    const user = document.getElementById('user').innerHTML.substr(7);
     var array = id.split('-');
     if (document.getElementById(`${array[0]}--${array[1]}`)){
         document.getElementById(`${array[0]}--${array[1]}`).style.backgroundColor = "black";
         document.getElementById(`${array[0]}--${array[1]}`).disabled = false;
     }
     var content = {
+        "User": `${user}`,
         "Title": `${array[0]}`,
         "Year": `${array[1]}`
     }
@@ -153,19 +163,13 @@ function deleteNomination(id) {
         body: JSON.stringify(content),
      })
      .then((res) => res.json());
-     const urlTwo = 'api/nominations/all'
-     fetch(urlTwo)
-     .then(response => response.json())
-     .then(data => {
-         console.log(data);
-         if(data.error){
-             //alert(data.error);
-         } else createNominationsOutput(data, 'nominationlist');
-     })
+     getNominations();
+     getPicks();
 }
 
 function getNominations() {
-    const urlTwo = 'api/nominations/all'
+    const user = document.getElementById('user').innerHTML.substr(7);
+    const urlTwo = `api/nominations/all/${user}`;
     fetch(urlTwo)
     .then(response => response.json())
     .then(data => {
@@ -179,4 +183,120 @@ function getNominations() {
                 }
         }
     })
+}
+
+document.getElementById('register').addEventListener('click', addUser);
+
+function addUser() {
+    document.getElementById('user-popup').style.display = "none";
+    document.getElementById('blur').style.display = "none";
+
+    const user = document.getElementById('username').value;
+    const content = {
+        User: user,
+    }
+    const url = `api/new/user`;
+    const sb = document.getElementById('search-bar');
+    const userP = document.createElement('p');
+    userP.id = "user";
+    console.log(content)
+    fetch(url, {
+        method: 'put',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(content),
+     })
+     .then((res) => res.json())
+     .then(data => {
+         console.log(data)
+        if(!data.status){
+            userP.innerHTML = `Hello, ${user}`;
+            sb.appendChild(userP);
+            getNominations();
+            getPicks();
+        }
+     })
+}
+
+document.getElementById('login').addEventListener('click', getUser);
+
+function getUser() {
+    document.getElementById('user-popup').style.display = "none";
+    document.getElementById('blur').style.display = "none";
+    const user = document.getElementById('username').value;
+    const url = `api/login/${user}`;
+    const sb = document.getElementById('search-bar');
+    const userP = document.createElement('p');
+    userP.id = "user";
+    fetch(url)
+     .then((res) => res.json())
+     .then(data => {
+        if(!data.status){
+            userP.innerHTML = `Hello, ${user}`;
+            sb.appendChild(userP);
+            getNominations();
+            getPicks();
+        } 
+     })
+}
+
+function getPicks() {
+    const url = 'api/posters/all'
+    fetch(url)
+     .then((res) => res.json())
+     .then(data => {
+        if(data !== undefined){
+            console.log(data);
+            setPosters(data);
+        } 
+     });
+    }
+
+function setPosters(posters){
+     console.log(posters);
+     const slide = document.getElementById('slider');
+     while(slide.hasChildNodes()){
+         slide.lastChild.remove();
+     }
+
+     for (let poster of posters) {
+        const item = document.createElement('div');
+        item.className = "item";
+        const img = document.createElement('img');
+        img.src = poster;
+        item.appendChild(img);
+        slide.appendChild(item);
+     }
+    /* Setting the default slide start index: */
+    /* We call the function that is implemented below: */
+    showSlides(1);
+}
+/* Flip function: */
+function showSlides(n) {
+    /* We refer to the elements with the class name "item", that is, to the pictures: */
+    let slides = document.getElementsByClassName("item");
+
+    for (let slide of slides) {
+        slide.style.display = "none";
+    }
+    if (n>1){
+        var temp;
+        for (let i = 0; i < (slides.length-1); i++) {
+            console.log(i)
+            temp = slides[i].innerHTML;
+            slides[i].innerHTML = slides[i+1].innerHTML;
+            slides[i+1].innerHTML = temp;
+        }
+    } else if (n<1){
+        var temp;
+        for (let i = slides.length-1; i > 0; i--) {
+            console.log(i)
+            temp = slides[i].innerHTML;
+            slides[i].innerHTML = slides[i-1].innerHTML;
+            slides[i-1].innerHTML = temp;
+        }
+    }
+    /* Making an element block: */
+    slides[0].style.display = "block";    
+    slides[1].style.display = "block";    
+    slides[2].style.display = "block";    
 }
