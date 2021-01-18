@@ -203,7 +203,7 @@ function addUser() {
      .then((res) => res.json())
      .then(data => {
          console.log(data)
-        if(data.status===200){
+        if(data.Message==="added"){
             document.getElementById('user-popup').style.display = "none";
             document.getElementById('blur').style.display = "none";
             userP.innerHTML = `Hello, ${user}`;
@@ -227,7 +227,7 @@ function getUser() {
      .then((res) => res.json())
      .then(data => {
          console.log(data)
-        if(data.status===200){
+        if(data.Message==="Logged in"){
             document.getElementById('user-popup').style.display = "none";
             document.getElementById('blur').style.display = "none";
             userP.innerHTML = `Hello, ${user}`;
