@@ -89,7 +89,7 @@ app.put('/api/nominate', (req,res) => {
 
 app.put('/api/new/user', (req,res) => {
     const {User} = req.body;
-    if (User === undefined) {
+    if (User === undefined || User === "") {
         res.status(404).send({ error: 'No user entered' });
     }
     if( !(db.get("users").find({ Name : User}).value()) ) {
