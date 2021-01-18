@@ -206,7 +206,7 @@ function addUser() {
      .then((res) => res.json())
      .then(data => {
          console.log(data)
-        if(!data.status){
+        if(data.status===200){
             userP.innerHTML = `Hello, ${user}`;
             sb.appendChild(userP);
             getNominations();
@@ -229,7 +229,7 @@ function getUser() {
     fetch(url)
      .then((res) => res.json())
      .then(data => {
-        if(!data.status){
+        if(data.status===200){
             userP.innerHTML = `Hello, ${user}`;
             sb.appendChild(userP);
             getNominations();
