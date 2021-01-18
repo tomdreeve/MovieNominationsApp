@@ -19,11 +19,10 @@ function createMoviesOutput(data, ol){
         btn.className = "nominate-button"
         btn.type = "button";
         btn.id = `${e["Title"]}--${e["Year"]}`;
-        if (document.getElementById(`${e["Title"]}-${e["Year"]}`)){
+        if (document.getElementById(`${e["Title"]}---${e["Year"]}`)){
             btn.style.backgroundColor = "grey";
             btn.disabled = true;
         }
-       // btn.addEventListener('click', addNomination(btn.id));
         const nom = "Nominate";
         btn.value = `${nom}`;
         const btnTwo = document.createElement('input');
@@ -52,7 +51,7 @@ function createNominationsOutput(data, ol){
         const btn = document.createElement('input');
         btn.className = "remove-button"
         btn.type = "button";
-        btn.id = `${e["Title"]}-${e["Year"]}`;
+        btn.id = `${e["Title"]}---${e["Year"]}`;
         if (document.getElementById(`${e["Title"]}--${e["Year"]}`)){
             document.getElementById(`${e["Title"]}--${e["Year"]}`).style.backgroundColor = "grey";
             document.getElementById(`${e["Title"]}--${e["Year"]}`).disabled = true;
@@ -72,13 +71,13 @@ function searchMovies() {
     const movie = encodeURIComponent(document.getElementById('search-field').value);
     var url = `api/${movie}`;
     const results = document.getElementById('results');
-    results.innerHTML = `Results for "${decodeURIComponent(movie)}"`
+    const input = decodeURIComponent(movie).toUpperCase();
+    results.innerHTML = `<span>RESULTS FOR "${input}"</span>`
     fetch(url)
     .then(response => response.json())
     .then(data => {
         console.log(data);
         if(data.error){
-            //alert(data.error);
         } else createMoviesOutput(data, 'movielist');
     })
     .catch(function(error) {
@@ -145,7 +144,7 @@ function addNomination(id) {
 function deleteNomination(id) {
     const btn = document.getElementById(id);
     const user = document.getElementById('user').innerHTML.substr(7);
-    var array = id.split('-');
+    var array = id.split('---');
     if (document.getElementById(`${array[0]}--${array[1]}`)){
         document.getElementById(`${array[0]}--${array[1]}`).style.backgroundColor = "black";
         document.getElementById(`${array[0]}--${array[1]}`).disabled = false;
@@ -175,7 +174,6 @@ function getNominations() {
     .then(data => {
         console.log(data);
         if(data.status){
-            //alert(data.error);
         } else { 
             createNominationsOutput(data, 'nominationlist');
             if (data.length === 5) {
@@ -266,13 +264,9 @@ function setPosters(posters){
         item.appendChild(img);
         slide.appendChild(item);
      }
-    /* Setting the default slide start index: */
-    /* We call the function that is implemented below: */
     showSlides(1);
 }
-/* Flip function: */
 function showSlides(n) {
-    /* We refer to the elements with the class name "item", that is, to the pictures: */
     let slides = document.getElementsByClassName("item");
 
     for (let slide of slides) {
@@ -281,7 +275,6 @@ function showSlides(n) {
     if (n>1){
         var temp;
         for (let i = 0; i < (slides.length-1); i++) {
-            console.log(i)
             temp = slides[i].innerHTML;
             slides[i].innerHTML = slides[i+1].innerHTML;
             slides[i+1].innerHTML = temp;
@@ -289,14 +282,15 @@ function showSlides(n) {
     } else if (n<1){
         var temp;
         for (let i = slides.length-1; i > 0; i--) {
-            console.log(i)
             temp = slides[i].innerHTML;
             slides[i].innerHTML = slides[i-1].innerHTML;
             slides[i-1].innerHTML = temp;
         }
     }
-    /* Making an element block: */
-    slides[0].style.display = "block";    
-    slides[1].style.display = "block";    
-    slides[2].style.display = "block";    
+    if (slides[0])
+        slides[0].style.display = "block";
+    if (slides[1])
+        slides[1].style.display = "block"; 
+    if (slides[2])   
+        slides[2].style.display = "block";    
 }

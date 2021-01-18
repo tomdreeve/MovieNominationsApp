@@ -49,6 +49,8 @@ app.get('/api/:movie', async (req,res) => {
 
 app.delete('/api/nominate', (req, res) => {
     const {User, Title, Year} = req.body;
+    console.log(Title);
+    console.log(db.get("nominations").find({ Owner: User }).get("picks").find({ Title: Title, Year: Year }).value())
     if((db.get("nominations").find({ Owner: User }).get("picks").find({ Title: Title, Year: Year }).value()) ) {
         db.get("nominations").find({ Owner: User }).get("picks").remove({ "Title": Title, "Year": Year }).write();
     } else {

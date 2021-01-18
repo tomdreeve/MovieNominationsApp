@@ -14,7 +14,8 @@
 <body>
   <div class="blur" id="blur"></div>
   <div class="background">
-      <h1 class="title">THE SHOPPIES</h1>
+    <h1 class="title">THE SHOPPIES</h1>
+    <div class="container">
       <div class="user-popup" id="user-popup">
         <h2 class="login-title">Who are you?</h2>
         <input type="text"placeholder="Username" name="username" class="username" id="username" required>
@@ -28,11 +29,11 @@
       </div>
       <div class="box">
       <div class="movie-box">
-        <h3 id="results">RESULTS</h3>
+        <h2 id="results"><span>RESULTS</span></h3>
         <ol id="movielist" class="movielist"></ol>
       </div>
       <div class="nomination-box" id="nomination-box">
-        <h3>NOMINATIONS</h3>
+        <h2><span>NOMINATIONS</span></h3>
         <ol id="nominationlist" class="nominationlist"></ol>
       </div>
       <div class="whitetee" id="whitetee">
@@ -43,6 +44,7 @@
     <div class="slider" id="slider">
     </div>
     </div>
+  </div>
   <script defer src="script.js"></script>
 </body>
 </html>

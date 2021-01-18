@@ -2,7 +2,7 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'Oswald', sans-serif;
 }
 p, div, input, body, button {
-    font-family: 'Cardo', serif;
+    font-family: 'roboto', sans-serif;
 }
 
 h3 {
@@ -12,15 +12,24 @@ body {
     background: url(curtains.png);
     background-repeat: no-repeat;
     background-size: cover;
-    height: 100%;
+    height: 150%;
+    background-color: black;
 }
 
+.container {
+    position: absolute;
+    width: 75%;
+    height: 85%;
+    left: 12.5%;
+    top: 7.75%;
+    background-color: black;
+}
 .background {
     margin-top: 0px;
     background: rgba(0,0,0,0.7);
     position: absolute;
     width: 100%;
-    height: 125%;
+    height: 150%;
     left: 0%;
     border: black;
     border-radius: 5px;
@@ -38,7 +47,7 @@ body {
 
 .title {
     margin-top: 0px;
-    position: relative;
+    position: fixed;
     text-align: center;
     width: 100%;
     left: 0%;
@@ -48,6 +57,7 @@ body {
     /*border-radius: 5px;*/
     box-shadow: 5px 5px 5px black;
     text-shadow: 4px 4px 5px darkred;
+    z-index: 10;
 }
 
 .movie-box {
@@ -237,14 +247,16 @@ input {
 
 .blur {
     width: 100%;
-    height: 100%;
+    height: 150%;
     position: absolute;
     top: 0;
     left: 0;
     background: rgba(0,0,0,1);
     z-index: 6;
 }
-
+.item img {
+    margin-top: auto;
+}
 .slider{
     /*max-width: 90%;
     /* The position of the element is set relative to its original position: */
@@ -252,19 +264,20 @@ input {
     /* Center horizontally: */
     margin-left: auto;
     margin-right: auto;
-    height: 444px;
-    width: 1000px;
+    width: 100%;
     top: 5%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-content: center;
 }
 /* The picture is scaled in relation to the parent element: */
 .slider .item img {
     /* The element is resized to fill the block and maintain proportions: */
     object-fit: cover;
-    width: 300px;
-    height: 444px;
+    width: 90%;
+    left: 5%;
+    position: relative;
 }
 /* Back and forward buttons: */
 .slider .previous, .slider .next {
