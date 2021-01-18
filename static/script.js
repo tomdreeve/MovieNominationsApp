@@ -211,7 +211,8 @@ function addUser() {
             sb.appendChild(userP);
             getNominations();
             getPicks();
-        }
+        } else
+            alert("Username exists!")
      })
 }
 
@@ -233,7 +234,8 @@ function getUser() {
             sb.appendChild(userP);
             getNominations();
             getPicks();
-        } 
+        } else 
+            alert("No user found");
      })
 }
 
