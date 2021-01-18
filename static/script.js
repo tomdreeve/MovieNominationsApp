@@ -226,6 +226,7 @@ function getUser() {
     fetch(url)
      .then((res) => res.json())
      .then(data => {
+         console.log(data)
         if(data.status===200){
             document.getElementById('user-popup').style.display = "none";
             document.getElementById('blur').style.display = "none";
