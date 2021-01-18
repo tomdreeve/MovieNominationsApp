@@ -203,7 +203,7 @@ function addUser() {
      .then((res) => res.json())
      .then(data => {
          console.log(data)
-        if(data.Message==="added"){
+        if(data.message==="added"){
             document.getElementById('user-popup').style.display = "none";
             document.getElementById('blur').style.display = "none";
             userP.innerHTML = `Hello, ${user}`;
