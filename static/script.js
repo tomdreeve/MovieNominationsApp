@@ -186,9 +186,6 @@ function getNominations() {
 document.getElementById('register').addEventListener('click', addUser);
 
 function addUser() {
-    document.getElementById('user-popup').style.display = "none";
-    document.getElementById('blur').style.display = "none";
-
     const user = document.getElementById('username').value;
     const content = {
         User: user,
@@ -207,6 +204,8 @@ function addUser() {
      .then(data => {
          console.log(data)
         if(data.status===200){
+            document.getElementById('user-popup').style.display = "none";
+            document.getElementById('blur').style.display = "none";
             userP.innerHTML = `Hello, ${user}`;
             sb.appendChild(userP);
             getNominations();
@@ -219,8 +218,6 @@ function addUser() {
 document.getElementById('login').addEventListener('click', getUser);
 
 function getUser() {
-    document.getElementById('user-popup').style.display = "none";
-    document.getElementById('blur').style.display = "none";
     const user = document.getElementById('username').value;
     const url = `api/login/${user}`;
     const sb = document.getElementById('search-bar');
@@ -230,6 +227,8 @@ function getUser() {
      .then((res) => res.json())
      .then(data => {
         if(data.status===200){
+            document.getElementById('user-popup').style.display = "none";
+            document.getElementById('blur').style.display = "none";
             userP.innerHTML = `Hello, ${user}`;
             sb.appendChild(userP);
             getNominations();
